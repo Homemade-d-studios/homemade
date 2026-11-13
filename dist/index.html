@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Homemade — design studio." />
+    <title>Homemade — Design studio</title>
+    <style>
+      @import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap");
+
+      @font-face {
+        font-family: "Bootzy TM";
+        src: url("BootzyTM.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      :root {
+        color-scheme: light;
+        font-family: "Satoshi", Arial, Helvetica, sans-serif;
+        letter-spacing: 0.055em;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        min-height: 100%;
+        margin: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background: #ffffff;
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar,
+      body::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        color: #111111;
+      }
+
+      main {
+        position: relative;
+        width: 100vw;
+        height: calc(100dvh - clamp(220px, 20vw, 300px));
+        min-height: 440px;
+        isolation: isolate;
+      }
+
+      .brand-lockup {
+        position: absolute;
+        z-index: 5;
+        top: clamp(100px, 18vh, 175px);
+        left: clamp(48px, 6vw, 96px);
+        margin: 0;
+        color: #111111;
+        font-family: "Satoshi", Arial, Helvetica, sans-serif;
+      }
+
+      .brand-name {
+        display: block;
+        font-family: "Bootzy TM", Arial, Helvetica, sans-serif;
+        font-size: clamp(2.5rem, 4.2vw, 4.75rem);
+        font-weight: 600;
+        letter-spacing: 0.035em;
+        line-height: 0.92;
+      }
+
+      .brand-mark {
+        display: inline-block;
+        margin-left: 0.18em;
+        font-size: 0.3em;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        line-height: 1;
+        vertical-align: top;
+        transform: translateY(0.08em);
+      }
+
+      .brand-discipline {
+        display: block;
+        margin-top: 8px;
+        margin-left: 0;
+        font-size: clamp(0.76rem, 0.92vw, 0.94rem);
+        font-weight: 400;
+        letter-spacing: 0.065em;
+        line-height: 1;
+      }
+
+      main::before,
+      main::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      main::before {
+        z-index: 0;
+        background: transparent;
+      }
+
+      main::after {
+        z-index: 1;
+        background: none;
+      }
+
+      .bottom-frost {
+        position: absolute;
+        z-index: 3;
+        inset: 0;
+        pointer-events: none;
+        background: transparent;
+        -webkit-backdrop-filter: blur(68px) saturate(125%);
+        backdrop-filter: blur(68px) saturate(125%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 35%) 22%, rgb(0 0 0 / 82%) 55%, #000 100%);
+        mask-image: linear-gradient(to bottom, transparent 0%, rgb(0 0 0 / 35%) 22%, rgb(0 0 0 / 82%) 55%, #000 100%);
+      }
+
+      .book-call {
+        position: absolute;
+        left: clamp(48px, 6vw, 96px);
+        top: 28px;
+        z-index: 5;
+        display: block;
+        width: 166px;
+        height: 48px;
+        border-radius: 999px;
+        background: #050505;
+        box-shadow: 0 5px 15px rgb(0 0 0 / 12%);
+        color: #ffffff;
+        font-size: 13.5px;
+        font-weight: 600;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: width 380ms cubic-bezier(.22, 1, .36, 1), box-shadow 380ms ease;
+      }
+
+      .call-phone,
+      .call-avatar {
+        display: grid;
+        place-items: center;
+        flex: none;
+        width: 37px;
+        height: 37px;
+        border-radius: 50%;
+      }
+
+      .call-phone {
+        position: absolute;
+        top: 5.5px;
+        left: 6px;
+        background: linear-gradient(145deg, #5bb1e9, #449bd4);
+        transition: transform 380ms cubic-bezier(.22, 1, .36, 1), opacity 240ms ease;
+      }
+
+      .call-phone svg { width: 19px; height: 19px; fill: #fff; }
+
+      .call-label {
+        position: absolute;
+        top: 50%;
+        left: 58px;
+        transform: translateY(-50%);
+        transition: left 380ms cubic-bezier(.22, 1, .36, 1);
+      }
+
+      .call-people {
+        position: absolute;
+        top: 5.5px;
+        right: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        opacity: 0;
+        transform: translateX(22px);
+        transition: opacity 260ms ease, transform 380ms cubic-bezier(.22, 1, .36, 1);
+      }
+
+      .call-avatar-blue {
+        background: #ffffff;
+        color: #050505;
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0;
+        text-indent: 0;
+        transform: translateX(-4px);
+      }
+      .call-avatar-person {
+        background: linear-gradient(145deg, #5bb1e9, #449bd4);
+        color: #ffffff;
+      }
+      .call-avatar svg { width: 19px; height: 19px; fill: currentColor; }
+      .call-cross { color: #a7a7a7; font-size: 14px; font-weight: 400; }
+
+      .book-call:hover,
+      .book-call:focus-visible {
+        width: 218px;
+        box-shadow: 0 8px 22px rgb(0 0 0 / 18%);
+      }
+
+      .book-call:hover .call-phone,
+      .book-call:focus-visible .call-phone {
+        opacity: 0;
+        transform: translateX(-45px);
+      }
+
+      .book-call:hover .call-label,
+      .book-call:focus-visible .call-label { left: 22px; }
+
+      .book-call:hover .call-people,
+      .book-call:focus-visible .call-people {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .book-call:focus-visible {
+        outline: 2px solid #28a9ff;
+        outline-offset: 3px;
+      }
+
+      .folder-grid {
+        position: absolute;
+        z-index: 4;
+        top: 71%;
+        right: 2.5vw;
+        width: 57vw;
+        height: 34vh;
+        transform: translateY(-50%);
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        column-gap: clamp(10px, 1.5vw, 28px);
+        row-gap: clamp(12px, 2vh, 24px);
+        overflow: hidden;
+      }
+
+      .folder {
+        min-width: 0;
+        min-height: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      .folder-art {
+        position: relative;
+        width: clamp(105px, 11.5vw, 168px);
+        aspect-ratio: 1.41;
+      }
+
+      .featured-folder {
+        cursor: pointer;
+        outline: none;
+      }
+
+      .folder-open {
+        border: 0;
+        padding: 0;
+        background: none;
+        font: inherit;
+      }
+
+      .folder-open[aria-busy="true"] { cursor: progress; }
+
+      .folder-open[aria-busy="true"] .folder-art::after {
+        content: "Loading…";
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        width: 100%;
+        color: #52758c;
+        font: 12px Arial, sans-serif;
+        text-align: center;
+      }
+
+      .project-overlay {
+        position: fixed;
+        inset: 0;
+        width: 90vw;
+        height: 85vh;
+        height: 85dvh;
+        max-width: none;
+        max-height: none;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #e1e1e1;
+        border-radius: 18px;
+        background: #fff;
+        overflow: hidden;
+        box-shadow: 0 24px 90px #0003;
+        transform-origin: top left;
+      }
+
+      .project-overlay::backdrop {
+        background: rgb(30 40 50 / 20%);
+        backdrop-filter: blur(3px);
+      }
+
+      .project-overlay[open] {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Lay out the live site at its final size before the first opening. */
+      .project-overlay:not([open]) {
+        display: flex;
+        flex-direction: column;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .project-overlay[open]::backdrop {
+        animation: backdrop-in 600ms cubic-bezier(.32, 0, .2, 1) both;
+      }
+
+      .project-overlay.is-closing::backdrop {
+        animation: backdrop-in 320ms ease reverse both;
+      }
+
+      @keyframes backdrop-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .overlay-close {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 2;
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        border: 1px solid rgb(235 249 255 / 80%);
+        border-radius: 50%;
+        background: linear-gradient(145deg, rgb(230 247 255 / 72%), rgb(140 200 233 / 60%));
+        backdrop-filter: blur(16px) saturate(140%);
+        -webkit-backdrop-filter: blur(16px) saturate(140%);
+        box-shadow: inset 0 1px 2px #ffffffe0, 0 3px 14px #234c6b26;
+        color: #235374;
+        font: 26px/1 Arial, sans-serif;
+        cursor: pointer;
+      }
+
+      .overlay-close:hover { background: linear-gradient(145deg, #e6f7ffe6, #8cc8e9cc); }
+      .overlay-close:focus-visible { outline: 2px solid #449bd4; }
+
+      .project-viewport {
+        flex: 1;
+        min-height: 0;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .project-frame {
+        display: block;
+        /* Clip the cross-origin site's scrollbar without disabling scrolling. */
+        width: calc(100% + 20px);
+        height: 100%;
+        border: 0;
+        background: #fff;
+      }
+
+      .featured-folder .folder-art {
+        background: none;
+        overflow: visible;
+        display: block;
+      }
+
+      .featured-folder svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+        filter: drop-shadow(3px 7px 6px rgba(0, 0, 0, 0.18));
+      }
+
+      .featured-folder text {
+        letter-spacing: 0.055em;
+      }
+
+      .paper-pop {
+        transform: translateY(0);
+        transition: transform 240ms ease;
+      }
+
+      .featured-folder:hover .paper-pop,
+      .featured-folder:focus-visible .paper-pop {
+        transform: translateY(-25px);
+      }
+
+      .featured-folder:focus-visible .folder-art {
+        outline: 2px solid rgba(62, 157, 218, 0.45);
+        outline-offset: 5px;
+        border-radius: 8px;
+      }
+
+      .bridge-footer {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      .bridge-footer img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-top: -17.5vw;
+      }
+
+      .footer-meta {
+        position: absolute;
+        z-index: 4;
+        bottom: 24px;
+        margin: 0;
+        color: #ffffff;
+        font-size: clamp(0.6rem, 0.68vw, 0.7rem);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: 0.05em;
+        pointer-events: none;
+      }
+
+      .footer-copy {
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Bootzy TM", Arial, Helvetica, sans-serif;
+      }
+
+      .footer-year {
+        font-family: "Satoshi", Arial, Helvetica, sans-serif;
+      }
+
+      .footer-location {
+        right: clamp(24px, 3.5vw, 56px);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .book-call,
+        .call-phone,
+        .call-label,
+        .call-people { transition: none; }
+
+        .project-overlay[open],
+        .project-overlay[open]::backdrop {
+          animation: none;
+        }
+
+        .paper-pop {
+          transition: none;
+        }
+      }
+
+      @media (max-width: 720px) {
+        main {
+          height: calc(100dvh - 200px);
+          min-height: 440px;
+        }
+
+        .brand-lockup {
+          top: 96px;
+          left: 40px;
+        }
+
+        .folder-grid {
+          top: 68%;
+          right: 2vw;
+          width: 62vw;
+          height: 26vh;
+        }
+
+        .folder-art {
+          width: clamp(74px, 19vw, 112px);
+        }
+
+        .bottom-frost {
+          inset: 0;
+        }
+
+        .book-call {
+          left: 40px;
+          top: 22px;
+        }
+
+        .bridge-footer img {
+          width: 150%;
+          max-width: none;
+          margin-top: -26vw;
+          transform: translateX(-16.667%);
+        }
+
+        .footer-meta {
+          bottom: 16px;
+          font-size: 0.57rem;
+        }
+
+        .footer-copy {
+          left: 24px;
+          transform: none;
+        }
+
+        .footer-location {
+          right: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-label="Homemade design studio">
+      <h1 class="brand-lockup">
+        <span class="brand-name">Homemade<sup class="brand-mark">©</sup></span>
+        <span class="brand-discipline">Design Studio</span>
+      </h1>
+      <div class="folder-grid" aria-label="Folder collection">
+        <button class="folder featured-folder folder-open" type="button" aria-label="Open StarCy website" aria-haspopup="dialog" aria-controls="project-overlay">
+          <span class="folder-art" aria-hidden="true">
+            <svg viewBox="0 0 480 340" xmlns="http://www.w3.org/2000/svg" focusable="false">
+              <defs>
+                <linearGradient id="starcy-back" x2="0" y2="1">
+                  <stop stop-color="#5bb1e9" />
+                  <stop offset="1" stop-color="#449bd4" />
+                </linearGradient>
+                <linearGradient id="starcy-paper" x2="1" y2="1">
+                  <stop stop-color="#fff" />
+                  <stop offset="1" stop-color="#dfe1e6" />
+                </linearGradient>
+                <linearGradient id="starcy-glass" x2="0" y2="1">
+                  <stop stop-color="#e6f7ff" stop-opacity=".64" />
+                  <stop offset=".4" stop-color="#c5e5f7" stop-opacity=".44" />
+                  <stop offset="1" stop-color="#8cc8e9" stop-opacity=".6" />
+                </linearGradient>
+                <linearGradient id="starcy-reflection" x1="0" y1="0" x2="1" y2=".6">
+                  <stop stop-color="white" stop-opacity=".24" />
+                  <stop offset=".3" stop-color="white" stop-opacity=".12" />
+                  <stop offset=".65" stop-color="white" stop-opacity=".06" />
+                  <stop offset="1" stop-color="white" stop-opacity=".14" />
+                </linearGradient>
+                <linearGradient id="starcy-rim" x2=".8" y2="1">
+                  <stop stop-color="white" stop-opacity=".7" />
+                  <stop offset=".45" stop-color="#e3f6ff" stop-opacity=".4" />
+                  <stop offset="1" stop-color="#e3f6ff" stop-opacity=".5" />
+                </linearGradient>
+                <filter id="starcy-frost" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="13" /></filter>
+                <clipPath id="starcy-front-clip">
+                  <path d="M8 176 Q8 139 48 139 H245 Q260 139 269 126 L290 105 Q299 95 315 95 H432 Q472 95 472 134 V296 Q472 332 432 332 H48 Q8 332 8 296Z" />
+                </clipPath>
+                <g id="starcy-sheets" fill="url(#starcy-paper)" stroke="#d8dce2" stroke-width="1">
+                  <rect x="120" y="88" width="132" height="204" rx="12" transform="rotate(-17 186 190)" />
+                  <rect x="148" y="69" width="132" height="218" rx="12" transform="rotate(-5 214 178)" />
+                  <rect x="177" y="65" width="132" height="222" rx="12" transform="rotate(7 243 176)" />
+                  <rect x="211" y="73" width="132" height="222" rx="12" transform="rotate(18 277 184)" />
+                </g>
+                <clipPath id="starcy-opening">
+                  <path d="M0 -50 H480 V95 H315 Q299 95 290 105 L269 126 Q260 139 245 139 H0Z" />
+                </clipPath>
+                <clipPath id="starcy-preview-corners">
+                  <rect x="78" y="58" width="324" height="183" rx="22" />
+                </clipPath>
+                <g id="starcy-preview">
+                  <g transform="translate(-12 -15) rotate(-12 240 150)">
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="white" />
+                    <image href="assets/projects/contact.png" x="78" y="58" width="324" height="183" preserveAspectRatio="xMidYMid meet" clip-path="url(#starcy-preview-corners)" />
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="none" stroke="#cbd8e2" stroke-width="2" />
+                  </g>
+                  <g transform="translate(-3 -8) rotate(-4 240 150)">
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="white" />
+                    <image href="assets/projects/privacy.png" x="78" y="58" width="324" height="183" preserveAspectRatio="xMidYMid meet" clip-path="url(#starcy-preview-corners)" />
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="none" stroke="#cbd8e2" stroke-width="2" />
+                  </g>
+                  <g transform="translate(10 -3) rotate(8 240 150)">
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="white" />
+                    <image href="assets/projects/careers.png" x="78" y="58" width="324" height="183" preserveAspectRatio="xMidYMid meet" clip-path="url(#starcy-preview-corners)" />
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="none" stroke="#cbd8e2" stroke-width="2" />
+                  </g>
+                  <g transform="translate(0 16)">
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="white" />
+                    <image href="assets/projects/preview.png" x="78" y="58" width="324" height="183" preserveAspectRatio="xMidYMid meet" clip-path="url(#starcy-preview-corners)" />
+                    <rect x="78" y="58" width="324" height="183" rx="22" fill="none" stroke="#cbd8e2" stroke-width="2" />
+                  </g>
+                </g>
+              </defs>
+              <path d="M8 42 Q8 0 50 0 H169 Q190 0 203 17 L226 42 Q239 54 261 54 H432 Q472 54 472 94 V290 Q472 328 432 328 H48 Q8 328 8 290Z" fill="url(#starcy-back)" />
+              <g clip-path="url(#starcy-opening)">
+                <g class="paper-pop"><use href="#starcy-preview" /></g>
+              </g>
+              <g clip-path="url(#starcy-front-clip)">
+                <path d="M0 90 H480 V340 H0Z" fill="#a1d8f5" fill-opacity=".22" />
+                <g filter="url(#starcy-frost)"><g class="paper-pop"><use href="#starcy-preview" /></g></g>
+                <path d="M0 90 H480 V340 H0Z" fill="url(#starcy-glass)" />
+                <path d="M0 90 H480 V340 H0Z" fill="url(#starcy-reflection)" />
+              </g>
+              <path d="M8 176 Q8 139 48 139 H245 Q260 139 269 126 L290 105 Q299 95 315 95 H432 Q472 95 472 134 V296 Q472 332 432 332 H48 Q8 332 8 296Z" fill="none" stroke="url(#starcy-rim)" stroke-width="4" />
+              <path d="M15 174 Q15 146 49 146 H244 Q264 146 275 130 L295 111 Q302 102 316 102 H431 Q463 102 465 132" fill="none" stroke="white" stroke-opacity=".35" stroke-width="2" />
+              <text x="35" y="269" fill="white" font-family="Arial, Helvetica, sans-serif" font-size="32">StarCy</text>
+              <image class="starcy-logo" href="assets/projects/image-removebg-preview.png" x="156" y="234" width="52" height="52" preserveAspectRatio="xMidYMid meet" />
+            </svg>
+          </span>
+        </button>
+        <div class="folder featured-folder" tabindex="0" data-name="Orbit" aria-label="Orbit folder"></div>
+        <div class="folder featured-folder" tabindex="0" data-name="Mellow" aria-label="Mellow folder"></div>
+        <div class="folder featured-folder" tabindex="0" data-name="Forma" aria-label="Forma folder"></div>
+        <div class="folder featured-folder" tabindex="0" data-name="Bloom" aria-label="Bloom folder"></div>
+        <div class="folder featured-folder" tabindex="0" data-name="Nova" aria-label="Nova folder"></div>
+      </div>
+    </main>
+    <footer class="bridge-footer" aria-label="Golden Gate Bridge">
+      <img src="assets/backgrounds/image.png" alt="Golden Gate Bridge across San Francisco Bay" />
+      <div class="bottom-frost" aria-hidden="true"></div>
+      <a class="book-call" href="https://sparkly-video-442909.framer.app/connect" target="_blank" rel="noopener noreferrer" aria-label="Book a Call">
+        <span class="call-phone" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.5 2.5c.5-.5 1.2-.6 1.8-.2l2.5 1.7c.6.4.8 1.2.5 1.8L10 8.1c-.2.4-.2.8.1 1.1l4.7 4.7c.3.3.7.3 1.1.1l2.3-1.3c.6-.3 1.4-.1 1.8.5l1.7 2.5c.4.6.3 1.3-.2 1.8l-1.7 1.7c-1.1 1.1-2.8 1.4-4.2.8A22.8 22.8 0 0 1 4 8.4c-.6-1.4-.3-3.1.8-4.2z"/></svg></span>
+        <span class="call-label">Book a Call</span>
+        <span class="call-people" aria-hidden="true">
+          <span class="call-avatar call-avatar-blue">H</span>
+          <span class="call-cross">×</span>
+          <span class="call-avatar call-avatar-person"><svg viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="4"/><path d="M3.5 20c0-4.4 3.8-7 8.5-7s8.5 2.6 8.5 7v1h-17z"/></svg></span>
+        </span>
+      </a>
+      <p class="footer-meta footer-copy">Homemade© <span class="footer-year">2026</span></p>
+      <p class="footer-meta footer-location">San Francisco, USA</p>
+    </footer>
+    <dialog class="project-overlay" id="project-overlay" aria-label="StarCy website preview">
+      <button class="overlay-close" type="button" aria-label="Close website preview" autofocus>×</button>
+      <div class="project-viewport">
+        <iframe class="project-frame" title="StarCy website" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </dialog>
+    <script>
+      const folderArtwork = document.querySelector(".featured-folder .folder-art");
+      document.querySelectorAll(".folder[data-name]").forEach((folder, index) => {
+        const artwork = folderArtwork.cloneNode(true);
+        artwork.querySelector(".starcy-logo")?.remove();
+        // Only StarCy contains the project screenshot; the others keep papers.
+        artwork.querySelectorAll('use[href="#starcy-preview"]').forEach((preview) => {
+          preview.setAttribute("href", "#starcy-sheets");
+        });
+        artwork.querySelector("#starcy-preview").remove();
+        artwork.querySelector("#starcy-preview-corners").remove();
+        // Give each copy its own SVG definitions and matching references.
+        artwork.querySelectorAll("*").forEach((element) => {
+          for (const attribute of [...element.attributes]) {
+            if (attribute.value.includes("starcy-")) {
+              element.setAttribute(attribute.name, attribute.value.replaceAll("starcy-", `folder-${index + 2}-`));
+            }
+          }
+        });
+        artwork.querySelector("text").textContent = folder.dataset.name;
+        folder.append(artwork);
+      });
+
+      const projectOverlay = document.querySelector("#project-overlay");
+      const projectFrame = projectOverlay.querySelector("iframe");
+      const projectTrigger = document.querySelector(".folder-open");
+      let overlayMotion;
+      let opening = false;
+      let websiteLoaded = false;
+      const websiteReady = new Promise((resolve) => {
+        projectFrame.addEventListener("load", () => {
+          websiteLoaded = true;
+          resolve();
+        }, { once: true });
+      });
+      // Load once, ahead of the interaction; preserve the live page on close.
+      projectFrame.loading = "eager";
+      projectFrame.src = "https://sparkly-video-442909.framer.app/";
+
+      function folderTransform() {
+        const folder = projectTrigger.querySelector(".folder-art").getBoundingClientRect();
+        const overlay = projectOverlay.getBoundingClientRect();
+        return `translate(${folder.left - overlay.left}px, ${folder.top - overlay.top}px) scale(${folder.width / overlay.width}, ${folder.height / overlay.height})`;
+      }
+
+      function closeProject() {
+        if (!projectOverlay.open || projectOverlay.classList.contains("is-closing")) return;
+        projectOverlay.classList.add("is-closing");
+        const currentTransform = getComputedStyle(projectOverlay).transform;
+        overlayMotion?.cancel();
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          projectOverlay.close();
+          return;
+        }
+        overlayMotion = projectOverlay.animate([
+          { transform: currentTransform, opacity: 1 },
+          { transform: folderTransform(), opacity: 0 }
+        ], { duration: 320, easing: "cubic-bezier(.4, 0, .6, 1)", fill: "forwards" });
+        overlayMotion.onfinish = () => projectOverlay.close();
+      }
+
+      projectTrigger.addEventListener("click", async () => {
+        if (opening || projectOverlay.open) return;
+        opening = true;
+        if (!websiteLoaded) {
+          projectTrigger.setAttribute("aria-busy", "true");
+          await websiteReady;
+          projectTrigger.removeAttribute("aria-busy");
+        }
+        overlayMotion?.cancel();
+        projectOverlay.classList.remove("is-closing");
+        projectOverlay.showModal();
+        if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          overlayMotion = projectOverlay.animate([
+            { transform: folderTransform(), opacity: 1 },
+            { transform: "translate(0, 0) scale(1)", opacity: 1 }
+          ], { duration: 750, easing: "cubic-bezier(.32, 0, .2, 1)" });
+          // Hold the starting pose for two paint frames so the iframe can render.
+          const openingMotion = overlayMotion;
+          openingMotion.pause();
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            if (projectOverlay.open && overlayMotion === openingMotion &&
+                !projectOverlay.classList.contains("is-closing")) openingMotion.play();
+          }));
+        }
+        opening = false;
+      });
+
+      projectOverlay.querySelector(".overlay-close").addEventListener("click", closeProject);
+
+      projectOverlay.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closeProject();
+      });
+
+      projectOverlay.addEventListener("click", (event) => {
+        if (event.target !== projectOverlay) return;
+        const bounds = projectOverlay.getBoundingClientRect();
+        if (event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom) {
+          closeProject();
+        }
+      });
+
+      projectOverlay.addEventListener("close", () => {
+        overlayMotion?.cancel();
+        projectOverlay.classList.remove("is-closing");
+        projectTrigger.focus();
+      });
+    </script>
+  </body>
+</html>
+
